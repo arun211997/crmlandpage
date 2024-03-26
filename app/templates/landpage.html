@@ -109,6 +109,53 @@
         .highlight {
             background-color: blueviolet;
         }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent black background */
+        }
+
+        .popup-content {
+            background-color: white;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .popup-dropzone {
+            position: fixed;
+            top: 35%;
+            left: 35%;
+            width: 400px;
+            height: 200px;
+            background-color: rgb(136, 175, 214);
+            border-style: solid;
+            border-color: rgb(15, 44, 73);
+            border-radius: 20px;
+            border-width: 10px;
+            /* Semi-transparent background */
+            display: none;
+            /* Initially hidden */
+            z-index: 9999;
+            /* Ensure it appears above other elements */
+        }
     </style>
 </head>
 
@@ -213,191 +260,182 @@
                 </div>
             </div><br>
         </div>
-       
-        </div><br>
-        <div class="container">
-            <div class="row" style="justify-content: center;background-color: #3e2727;">
-                <div class="col-md-3" style="background-color: rgb(248, 250, 250);" id="dropzone1">
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;">
-                        <div class="card"
-                            style="background-color: rgb(59, 157, 206);height: 10px;border-radius: unset;"> </div>
-                        <div class="card"
-                            style="height: 70px;justify-content: center;border-radius: unset;background-color: #ffffff;">
-                            <span style="font-weight: bold;margin-left: 30px;">New Deals</span>
-                            <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
-                        </div>
+
+    </div><br>
+    <div class="container">
+        <div id="popupDropzone" class="popup-dropzone">
+            <h5 style="font-weight: bold;font-size: medium;color:#1e263d;">Drop here</h5>
+        </div>
+        <div class="row" style="justify-content: center;background-color: #ffffff;">
+            <div class="col-md-3" style="background-color: rgb(248, 250, 250);" id="dropzone1">
+                <div class="row-3" style="justify-content: center;margin-top: 10px;">
+                    <div class="card" style="background-color: rgb(59, 157, 206);height: 10px;border-radius: unset;">
                     </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card2" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">Instance Software</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Brailounge</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Martha Hills</span><br>
-                                <span id="value">$900</span>
-                            </div>
-                        </div>
+                    <div class="card"
+                        style="height: 70px;justify-content: center;border-radius: unset;background-color: #ffffff;">
+                        <span style="font-weight: bold;margin-left: 30px;">New Deals</span>
+                        <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
                     </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card3" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">New Widget Deal</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> THK & Bridge</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
-                                <!-- <span>$1400 Feb 21 2023</span> -->
-                                <span id="value">$1400</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card4" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">New Widget Deal</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> THK & Bridge</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
-                                <!-- <span>$1400 Feb 21 2023</span> -->
-                                <span id="value">$21400</span>
-                            </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card2" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">Instance Software</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Brailounge</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Martha Hills</span><br>
+                            <span id="value">$900</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3" style="background-color: rgb(248, 250, 250);" id="dropzone2">
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;">
-                        <div class="card"
-                            style="background-color: rgb(59, 157, 206);height: 10px;border-radius: unset;"> </div>
-                        <div class="card" style="height: 70px;justify-content: center;border-radius: unset;">
-                            <span style="font-weight: bold;margin-left: 30px;">Value Proposition</span>
-                            <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card5" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">100 Widgets</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px">Blue Rivers pvt</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Joanee Lee</span><br>
-                                <!-- <span>$211900 MAR 21 2023</span> -->
-                                <span id="value">$11900</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card6" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">Skillbox</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Skillbox ltd</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
-                                <!-- <span>$211400 Feb 21 2023</span> -->
-                                <span id="value">$711400</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card7" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">Instawidgets</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Photofeed</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Joanee Lee</span><br>
-                                <!-- <span>$2141400 Feb 21 2023</span> -->
-                                <span id="value">$80100</span>
-                            </div>
+                <div class="row-3" onclick="openPopup()"
+                    style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card3" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">New Widget Deal</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> THK & Bridge</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
+                            <span id="value">$1400</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3" style="background-color: rgb(248, 250, 250);" id="dropzone3">
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;">
-                        <div class="card"
-                            style="background-color: rgb(32, 199, 146);height: 10px;border-radius: unset;"> </div>
-                        <div class="card" style="height: 70px;justify-content: center;border-radius: unset;">
-                            <span style="font-weight: bold;margin-left: 30px;">Closed Won</span>
-                            <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card8" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">10 widgets deal</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Tagpad</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Martha Hills</span><br>
-                                <span id="value">$215400</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card9" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">vu Widget Deal</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Innotype</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
-                                <span id="value">$2588400</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card10" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">Insta widgets</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Photofeed</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Joanee lee</span><br>
-                                <span id="value">$2361400</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3" style="background-color: rgb(248, 250, 250);justify-content: center;"
-                    id="dropzone4">
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;">
-                        <div class="card" style="background-color: rgb(247, 74, 74);height: 10px;border-radius: unset;">
-                        </div>
-                        <div class="card" style="height: 70px;justify-content: center;border-radius: unset;">
-                            <span style="font-weight: bold;margin-left: 30px;">Closed Lost</span>
-                            <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card11" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">Reports widgets</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Ozu</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
-                                <span id="value">$77900</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card12" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">trello Widgets</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Digitube</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
-                                <span id="value">$25400</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-                        <div class="card" id="card13" draggable="true"
-                            style="justify-content: center;border-radius: unset;">
-                            <div style="margin: 5px 5px;">
-                                <span style="font-weight: bold; font-size: medium;">Noire Widgets</span><br>
-                                <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Inoojam</span><br>
-                                <span style="font-size: medium; opacity: 0.6;">Martha hills</span><br>
-                                <span id="value">$1400</span>
-                            </div>
+                <div class="row-3" onclick="openPopup()"
+                    style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card4" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">New Widget Deal</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> THK & Bridge</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
+                            <span id="value">$21400</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- <div class="col-md-3" style="background-color: rgb(248, 250, 250);" id="dropzone2">
+                <div class="row-3" style="justify-content: center;margin-top: 10px;">
+                    <div class="card" style="background-color: rgb(59, 157, 206);height: 10px;border-radius: unset;">
+                    </div>
+                    <div class="card" style="height: 70px;justify-content: center;border-radius: unset;">
+                        <span style="font-weight: bold;margin-left: 30px;">Value Proposition</span>
+                        <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card5" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">100 Widgets</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px">Blue Rivers pvt</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Joanee Lee</span><br>
+                            <span id="value">$11900</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card6" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">Skillbox</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Skillbox ltd</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
+                            <span id="value">$711400</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card7" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">Instawidgets</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Photofeed</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Joanee Lee</span><br>
+                            <span id="value">$80100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="background-color: rgb(248, 250, 250);" id="dropzone3">
+                <div class="row-3" style="justify-content: center;margin-top: 10px;">
+                    <div class="card" style="background-color: rgb(32, 199, 146);height: 10px;border-radius: unset;">
+                    </div>
+                    <div class="card" style="height: 70px;justify-content: center;border-radius: unset;">
+                        <span style="font-weight: bold;margin-left: 30px;">Closed Won</span>
+                        <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card8" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">10 widgets deal</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Tagpad</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Martha Hills</span><br>
+                            <span id="value">$215400</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card9" draggable="true" style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">vu Widget Deal</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Innotype</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
+                            <span id="value">$2588400</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card10" draggable="true"
+                        style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">Insta widgets</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Photofeed</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Joanee lee</span><br>
+                            <span id="value">$2361400</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="background-color: rgb(248, 250, 250);justify-content: center;" id="dropzone4">
+                <div class="row-3" style="justify-content: center;margin-top: 10px;">
+                    <div class="card" style="background-color: rgb(247, 74, 74);height: 10px;border-radius: unset;">
+                    </div>
+                    <div class="card" style="height: 70px;justify-content: center;border-radius: unset;">
+                        <span style="font-weight: bold;margin-left: 30px;">Closed Lost</span>
+                        <span style="margin-left: 30px;">$<span id="total" style="font-size: medium;"></span></span>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card11" draggable="true"
+                        style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">Reports widgets</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Ozu</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
+                            <span id="value">$77900</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card12" draggable="true"
+                        style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">trello Widgets</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Digitube</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Amelia Burrows</span><br>
+                            <span id="value">$25400</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-3" style="justify-content: center;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card" id="card13" draggable="true"
+                        style="justify-content: center;border-radius: unset;">
+                        <div style="margin: 5px 5px;">
+                            <span style="font-weight: bold; font-size: medium;">Noire Widgets</span><br>
+                            <span><img src="{% static 'c1.png' %}" alt="" width="25px"> Inoojam</span><br>
+                            <span style="font-size: medium; opacity: 0.6;">Martha hills</span><br>
+                            <span id="value">$1400</span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
         </div>
+    </div>
     </div><br>
     <div class="container">
         <div class="row" id="task">
@@ -412,7 +450,7 @@
                         <span style="color: rgb(0, 102, 255);opacity: 0.8;">Prepare Quote</span>
                     </div>
                     <div class="col-3" style="justify-content: center;align-items: center;display: flex;">
-                        <span style="font-size: medium;" >Mark Adrewews</span>
+                        <span style="font-size: medium;">Mark Adrewews</span>
                     </div>
                     <div class="col-3" style="justify-content: center;align-items: center;display: flex;">
                         <span style="opacity: 0.7;font-size: small;">Mar 21 | 10.00 AM</span>
@@ -427,7 +465,7 @@
                         <span style="color: rgb(0, 102, 255);opacity: 0.8;">Prepare Quote</span>
                     </div>
                     <div class="col-3" style="justify-content: center;align-items: center;display: flex;">
-                        <span style="font-size: medium;" >Mark Adrewews</span>
+                        <span style="font-size: medium;">Mark Adrewews</span>
                     </div>
                     <div class="col-3" style="justify-content: center;align-items: center;display: flex;">
                         <span style="opacity: 0.7;font-size: small;">Mar 21 | 10.00 AM</span>
@@ -442,7 +480,7 @@
                         <span style="color: rgb(0, 102, 255);opacity: 0.8;">Prepare Quote</span>
                     </div>
                     <div class="col-3" style="justify-content: center;align-items: center;display: flex;">
-                        <span style="font-size: medium;" >Mark Adrewews</span>
+                        <span style="font-size: medium;">Mark Adrewews</span>
                     </div>
                     <div class="col-3" style="justify-content: center;align-items: center;display: flex;">
                         <span style="opacity: 0.7;font-size: small;">Mar 21 | 10.00 AM</span>
@@ -451,7 +489,7 @@
             </div>
         </div>
     </div>
-
+   
     <footer class="footer">
         <div class="container" style="justify-content: center;align-items: center;display: flex;">
             <div class="row" style="width: 100%;">
@@ -518,93 +556,49 @@
 
     // Store the original order of the cards when the page loads
 
-
-
-    function updateTotal(columnId) {
-        const cards = document.querySelectorAll(`#${columnId} .card`);
-        let totalValue = 0;
-        cards.forEach(card => {
-            const valueSpan = card.querySelector('#value');
-
-            if (valueSpan) {
-
-                totalValue += parseInt(valueSpan.textContent.replace(/\D/g, ''), 10);
-            }
-        });
-        const totalSpan = document.querySelector(`#${columnId} #total`);
-        if (totalSpan) {
-            totalSpan.textContent = totalValue.toLocaleString()
-        }
-    }
-    function updateAllTotals() {
-        const dropzones = document.querySelectorAll("[id^='dropzone']");
-        dropzones.forEach(dropzone => {
-            updateTotal(dropzone.id);
-        });
-    }
-    updateAllTotals();
-
     const cards = document.querySelectorAll(".card");
-    const dropzones = document.querySelectorAll("[id^='dropzone']");
-
-    const originalOrder = [];
-    let isOrderInitialized = false; // Flag to track initialization
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const cards = document.querySelectorAll(".card");
-        cards.forEach(card => {
-            originalOrder.push(card.id);
-        });
-        isOrderInitialized = true;
-    });
-
     // Load saved card positions from local storage
     cards.forEach(card => {
         card.addEventListener('dragstart', function (event) {
             event.dataTransfer.setData('text/plain', event.target.id);
-            setTimeout(() => card.classList.add("dragging"), 0);
-        });
-        card.addEventListener("dragend", () => card.classList.remove("dragging"));
-    });
-
-
-
-
-    // Add event listener to the undo button
-
-    dropzones.forEach(dropzone => {
-        dropzone.addEventListener('dragover', function (event) {
-            event.preventDefault();
-        });
-
-        dropzone.addEventListener('drop', function (event) {
-            event.preventDefault();
-            const cardId = event.dataTransfer.getData('text/plain');
-            const draggedCard = document.getElementById(cardId);
-            dropzone.appendChild(draggedCard);
-            draggedCard.style.marginTop = "10px";
-            draggedCard.style.marginBottom = "10px";
-            draggedCard.classList.remove("dragging");
-            const cardIndex = Array.from(dropzone.children).indexOf(draggedCard);
-            localStorage.setItem(cardId, cardIndex);
-            updateAllTotals();
+            showDropzone();
         });
     });
 
-    function resetCardOrder() {
-        if (!isOrderInitialized) return; // Don't reset if not initialized
-
-        const container = document.querySelector(".container");
-        originalOrder.forEach(id => {
-            const card = document.getElementById(id);
-            container.appendChild(card); // Append the card to its original position
+    cards.forEach(card => {
+        card.addEventListener('dragend', function (event) {
+            hideDropzone();
         });
+    });
+
+    var dropzone = document.getElementById("popupDropzone");
+    dropzone.addEventListener('dragover', function (event) {
+        event.preventDefault();
+    });
+
+    function hideDropzone() {
+        var dropzone = document.getElementById("popupDropzone");
+        dropzone.style.display = "none";
     }
 
-    const undoButton = document.getElementById("undoButton");
-    undoButton.addEventListener("click", function () {
-        resetCardOrder();
-    });
+    function showDropzone() {
+        var dropzone = document.getElementById("popupDropzone");
+        dropzone.style.display = "block";
+    }
+
+    
+
+    dropzone.addEventListener('drop', function (event) {
+        event.preventDefault();
+        var cardId = event.dataTransfer.getData('text/plain');
+        archiveMessage(cardId);
+    })
+
+
+
+
+
+
 
 
     // Call setCardOrder function when the page loads
@@ -648,6 +642,15 @@
             }
         }
     });
+</script>
+<script>
+    function openPopup() {
+        document.getElementById("popup").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
 </script>
 
 
