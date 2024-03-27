@@ -91,7 +91,7 @@
             background-color: #333;
             color: #fff;
             padding: 50px 0;
-            margin-top: 600px;
+            margin-top: 450px;
         }
 
         .card {
@@ -110,53 +110,50 @@
             background-color: blueviolet;
         }
 
-        body {
-            background: linear-gradient(90deg,
-                    rgba(15, 38, 153, 1) 22%,
-                    rgba(198, 69, 242, 1) 100%);
-            /* animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed; */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
         }
 
-        @keyframes gradient {
-            0% {
-                background-position: 0% 0%;
-            }
-
-            50% {
-                background-position: 100% 100%;
-            }
-
-            100% {
-                background-position: 0% 0%;
-            }
+        .popup-dropzone {
+            position: fixed;
+            top: 35%;
+            left: 40%;
+            width: 400px;
+            height: 200px;
+            background-color: rgb(82, 134, 177);
+            /* Semi-transparent background */
+            display: none;
+            /* Initially hidden */
+            z-index: 9999;
+            /* Ensure it appears above other elements */
         }
     </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(27, 28, 36); ">
-        <a class="navbar-brand" href="#" style="font-weight: bold;color: rgb(255, 255, 255);margin-left: 30PX;">CRM</a>
-        <span class="navbar-toggler-icon" onclick="w3_open()" id="openNav"
-            style="margin-right: 30px; background-color: #f1f1f1;"></span>
+<body style="background-color:rgb(247, 249, 250);">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(236, 239, 244); ">
+        <a class="navbar-brand" href="#" style="font-weight: bold;color: rgb(33, 37, 40);margin-left: 30PX;">CRM</a>
+        <span class="navbar-toggler-icon" onclick="w3_open()" id="openNav" style="margin-right: 30px;"></span>
         <span class="navbar-toggler-icon" onclick="w3_close()" id="closeNav"
-            style="display: none;margin-right: 30px;background-color: #f1f1f1;"></span>
+            style="display: none;margin-right: 30px;"></span>
         <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: center;align-items: center;">
             <div style="width: 50%;align-items: baseline;;">
                 <ul class="navbar-nav ml-auto" style="justify-content: space-around;align-items: baseline;">
                     <a class="nav-link"
-                        style="color: rgb(229, 232, 234); font-weight: bold; font-size: 1rem; outline: none; border: none; background-color: none;margin-left: 5px;"
+                        style="color: rgb(34, 37, 39); font-weight: bold; font-size: 1rem; outline: none; border: none; background-color: none;margin-left: 5px;"
                         id="log" type="button" data-toggle="modal" data-target="#signinmodal">overview</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            style="color: rgb(237, 242, 246); font-weight: bold; font-size:medium; outline: none; border: none; background-color: none;margin-left: 5px;"
+                            style="color: rgb(34, 37, 39); font-weight: bold; font-size:medium; outline: none; border: none; background-color: none;margin-left: 5px;"
                             id="log" type="button" data-toggle="modal" data-target="#signinmodal">Features</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            style="color: rgb(222, 228, 233); font-weight: bold; font-size: medium; outline: none; border: none;margin-left: 5px;"
+                            style="color: rgb(34, 37, 39); font-weight: bold; font-size: medium; outline: none; border: none;margin-left: 5px;"
                             id="log" type="button" class="btn" data-toggle="modal" data-target="#signupmodal">Sign
                             In</a>
                     </li>
@@ -174,30 +171,16 @@
         <a href="#" class="w3-bar-item w3-button" style="font-size: medium;">Features</a>
         <a href="#" class="w3-bar-item w3-button" style="font-size: medium;">Sign in</a>
     </div>
-    <div class="container" style="margin-top: 96px;">
-        <div class="row">
-            <div class="col-md-6" style="justify-content: center;">
-                <div>
-                    <button style="background-color: #f1f1f1;width: 150px;border-radius: 20px;font-weight: bold;">Easy
-                        To Use</button><br>
-                    <p style="color: #fff;font-size: medium;margin-top: 20px;">
-                        CRM (customer relationship management) is the combination of practices, strategies and
-                        technologies that companies use to manage and analyze customer interactions and data throughout
-                        the customer lifecycle. The goal is to improve customer service relationships and assist with
-                        customer retention and drive sales growth. <br><br>
-                        CRM systems compile customer data across different channels and points of contact between the
-                        customer and the company. These can include the company's website, telephone, live chat, direct
-                        mail, marketing materials and social networks. CRM systems can also give customer-facing staff
-                        detailed data on customers' personal information, purchase history, buying preferences and
-                        concerns
-                    </p>
+    <div class="container-fluid" style="margin-top: 96px;">
+        <div class="container">
+            <div>
+                <div class="row" id="archivedMessageContainer">
+
                 </div>
-            </div>
-            <div class="col-md-6">
-                <img src="/static/S2.png" alt="">
             </div>
         </div>
     </div>
+
 
     <footer class="footer">
         <div class="container" style="justify-content: center;align-items: center;display: flex;">
@@ -218,7 +201,7 @@
                 </div>
                 <div class="col-md-3">
                     <h3 style="font-size: large;">About</h3>
-                    <span style="font-size: medium;opacity: 0.7;">Contact</span><br>
+                    <span style="font-size: medium;opacity: 0.7;background-color: rgb(61, 51, 139);">Contact</span><br>
                     <span style="font-size: medium;opacity: 0.7;">Team</span><br>
                     <span style="font-size: medium;opacity: 0.7;">Careers</span><br>
                     <p style="font-size: medium;opacity: 0.7;">Services</p>
@@ -232,6 +215,93 @@
             </div><br>
     </footer>
 </body>
+
+<script>
+    function populateArchivedMessages() {
+        var archivedMessageContainer = document.getElementById("archivedMessageContainer");
+        var archiveMessagesData = JSON.parse(localStorage.getItem('ArchiveMessages'));
+        if (archiveMessagesData && archiveMessagesData.length > 0) {
+            // If there are archived messages, populate them
+            archiveMessagesData.forEach((item) => {
+
+                var messageDivcol = document.createElement("div");
+                messageDivcol.className = "row";
+                
+
+                var messageDiv = document.createElement("div");
+                messageDiv.className = "card";
+                messageDiv.id = "message" + item.id;
+                messageDiv.style.display = "flex";
+
+                var messageDivbody = document.createElement("div");
+                messageDivbody.className = "card-body";
+                messageDivbody.id = "messagebody" + item.id;
+                
+
+                var img = document.createElement("img");
+                img.src = item.image;
+                img.width = 20;
+                img.alt = "";
+                var Name = document.createElement("h5");
+                Name.textContent = item.name;
+                Name.className = "name";
+                var label = document.createElement("p");
+                label.textContent = item.message;
+                label.className = "message-name";
+                var span = document.createElement("span");
+                span.innerHTML = `<i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>`;
+
+
+                var button = document.createElement("button");
+                button.className = "btn";
+                button.textContent = "Undo";
+                button.style.backgroundColor = "rgb(61, 51, 139)";
+                button.style.color="white";
+                button.style.fontSize="small";
+                button.style.height="25px";
+                button.style.display="flex";
+                button.style.alignItems="center";
+               
+
+                button.onclick = function () {
+                    undoMessage(item.id);
+                    // Remove the message from UI when undo button is clicked
+                    messageDiv.remove();
+                };
+
+                messageDivbody.appendChild(img);
+                messageDivbody.appendChild(Name);
+                messageDivbody.appendChild(label);
+                messageDivbody.appendChild(span);
+                messageDivbody.appendChild(button);
+                messageDiv.appendChild(messageDivbody)
+                messageDivcol.appendChild(messageDiv)
+
+                archivedMessageContainer.appendChild(messageDivcol);
+            });
+        } else {
+            // If no archived messages found, display a message
+            archivedMessageContainer.innerHTML = "<p>No archived messages found.</p>";
+        }
+    }
+
+    window.onload = populateArchivedMessages;
+
+    function undoMessage(messageId) {
+        var archiveMessagesData = JSON.parse(localStorage.getItem('ArchiveMessages'));
+        if (archiveMessagesData && archiveMessagesData.length > 0) {
+            // Find index of the message with given ID
+            var index = archiveMessagesData.findIndex(item => item.id === messageId);
+            if (index !== -1) {
+                // Remove the message from the array
+                archiveMessagesData.splice(index, 1);
+                // Update the local storage
+                localStorage.setItem('ArchiveMessages', JSON.stringify(archiveMessagesData));
+            }
+        }
+    }
+</script>
+
 <script>
     function w3_open() {
         var screenWidth = window.innerWidth;

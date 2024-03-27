@@ -6,3 +6,6 @@ def land(request):
 
 def dashboard(request):
     return render(request,"landpage.html")
+
+def archiv(request):
+    return render(request,"archieved.html")
