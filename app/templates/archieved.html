@@ -134,26 +134,26 @@
 </head>
 
 <body style="background-color:rgb(247, 249, 250);">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(236, 239, 244); ">
-        <a class="navbar-brand" href="#" style="font-weight: bold;color: rgb(33, 37, 40);margin-left: 30PX;">CRM</a>
-        <span class="navbar-toggler-icon" onclick="w3_open()" id="openNav" style="margin-right: 30px;"></span>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(39, 6, 67); ">
+        <a class="navbar-brand" href="#" style="font-weight: bold;color:rgb(245, 247, 249);margin-left: 30PX;">CRM</a>
+        <span class="navbar-toggler-icon" onclick="w3_open()" id="openNav" style="margin-right: 30px;background-color:rgb(245, 247, 249);"></span>
         <span class="navbar-toggler-icon" onclick="w3_close()" id="closeNav"
-            style="display: none;margin-right: 30px;"></span>
+            style="display: none;margin-right: 30px;background-color:rgb(245, 247, 249);"></span>
         <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: center;align-items: center;">
             <div style="width: 50%;align-items: baseline;;">
                 <ul class="navbar-nav ml-auto" style="justify-content: space-around;align-items: baseline;">
                     <a class="nav-link"
-                        style="color: rgb(34, 37, 39); font-weight: bold; font-size: 1rem; outline: none; border: none; background-color: none;margin-left: 5px;"
+                        style="color:rgb(245, 247, 249);font-weight: bold; font-size: 1rem; outline: none; border: none; background-color: none;margin-left: 5px;"
                         id="log" type="button" data-toggle="modal" data-target="#signinmodal">overview</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            style="color: rgb(34, 37, 39); font-weight: bold; font-size:medium; outline: none; border: none; background-color: none;margin-left: 5px;"
+                            style="color:rgb(245, 247, 249);font-weight: bold; font-size:medium; outline: none; border: none; background-color: none;margin-left: 5px;"
                             id="log" type="button" data-toggle="modal" data-target="#signinmodal">Features</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            style="color: rgb(34, 37, 39); font-weight: bold; font-size: medium; outline: none; border: none;margin-left: 5px;"
+                            style="color:rgb(245, 247, 249); font-weight: bold; font-size: medium; outline: none; border: none;margin-left: 5px;"
                             id="log" type="button" class="btn" data-toggle="modal" data-target="#signupmodal">Sign
                             In</a>
                     </li>
@@ -175,13 +175,12 @@
         <div class="container">
             <div>
                 <div class="row" id="archivedMessageContainer">
+                    
 
                 </div>
             </div>
         </div>
     </div>
-
-
     <footer class="footer">
         <div class="container" style="justify-content: center;align-items: center;display: flex;">
             <div class="row" style="width: 100%;">
@@ -226,12 +225,12 @@
 
                 var messageDivcol = document.createElement("div");
                 messageDivcol.className = "row";
-                
-
                 var messageDiv = document.createElement("div");
                 messageDiv.className = "card";
                 messageDiv.id = "message" + item.id;
                 messageDiv.style.display = "flex";
+                messageDiv.style.color="rgb(255, 255, 255)"
+                messageDiv.style.backgroundColor = "rgb(56, 16, 94)"
 
                 var messageDivbody = document.createElement("div");
                 messageDivbody.className = "card-body";
@@ -276,12 +275,12 @@
                 messageDivbody.appendChild(button);
                 messageDiv.appendChild(messageDivbody)
                 messageDivcol.appendChild(messageDiv)
-
                 archivedMessageContainer.appendChild(messageDivcol);
+                
             });
         } else {
             // If no archived messages found, display a message
-            archivedMessageContainer.innerHTML = "<p>No archived messages found.</p>";
+            archivedMessageContainer.innerHTML = "<p>No archived messages</p>";
         }
     }
 
